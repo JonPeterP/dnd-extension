@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <div class="container">
+      <div className="container">
         <Router>
         <Nav className="justify-content-center " bg="dark" justify variant="tabs" defaultActiveKey="/combat">
           <Nav.Item>
@@ -50,12 +50,19 @@ function App() {
   )
 }
 
-function Roll() {
-  var textarea = document.querySelector('textarea[title="Text Chat Input"]');
-  textarea.value = "Testing";
-  var sendbtn = document.getElementById("chatSendBtn");
-  sendbtn.click();
-  console.log(textarea);
+// function Roll(test) {
+//   console.log(test);
+//   console.log("button pressed");
+//   /*var textarea = document.querySelector('textarea[title="Text Chat Input"]');
+//   textarea.value = "Testing";
+//   var sendbtn = document.getElementById("chatSendBtn");
+//   sendbtn.click();
+//   console.log(textarea);
+//   */
+// }
+
+export const Roll = (test) =>{
+  console.log(test);
 }
 
 export default App
