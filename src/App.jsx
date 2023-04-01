@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Route } from 'react-router-dom';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css'
 
 function App() {
@@ -8,31 +16,26 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div class="container">
+        <Nav className="justify-content-center " bg="dark" justify variant="tabs" defaultActiveKey="/combat">
+          <Nav.Item>
+            <Nav.Link href="/combat">Combat</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/skills">Skills</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/edit">Edit</Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+        <h1>DnD Test</h1>
       </div>
-      <h1>DnD Test</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
 
-function Roll(){
+function Roll() {
   var textarea = document.querySelector('textarea[title="Text Chat Input"]');
   textarea.value = "Testing";
   var sendbtn = document.getElementById("chatSendBtn");
