@@ -5,9 +5,10 @@
     "version": "1.0.0",
     "action":{
         "default_popup": "index.html",
-        "default_title": "Open"
+        "default_title": "Dnd Roll"
     },
-    "permission": [
-        "scripting"
-    ]
+    "permissions": [
+        "scripting", "activeTab", "storage"
+    ],
+    "host_permissions":["<all_urls>"]
 }

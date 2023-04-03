@@ -9,7 +9,11 @@ function Combat() {
 
     let btns = [];
     for (let i = 0; i < 15; i++) {
-        btns.push(<BtnCombat key={i} btnname={i + " long name very long name"} clickMessage={"pressed " + i.toString()} />)
+        btns.push(<BtnCombat
+            key={i}
+            btnname={i + " long name very long name"}
+            clickMessage={"/r 1d" + i.toString() +  " Attack"} />
+        )
     }
     return (
         <div className="divCombat">
