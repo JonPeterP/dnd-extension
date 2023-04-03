@@ -30,3 +30,39 @@
   background-color: rgb(56, 56, 56);
   color: whitesmoke;
 }
+
+.divCombat{
+  background-color: red;
+  padding-top: 5px;
+}
+
+.divWeaponBtns{
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px;
+  gap: 5px;
+}
+
+.divLblBtnCombat{
+  display: flex;
+  flex: 1 0 100%;
+  gap: 5px;
+
+  align-items: center;
+  
+}
+
+.btnCombat
+{
+  /*min-width: 75px;*/
+  margin: 0;  
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.lblCombat{
+  /*min-width: 50px;*/
+  margin: 0;
+  font-size: 1rem;
+}
