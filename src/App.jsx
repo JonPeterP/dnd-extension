@@ -24,6 +24,7 @@ function App() {
 
 
   return (
+    //Translate to useState som time soon
     <div className="App">
       <div className="container">
         <Router>
@@ -52,17 +53,6 @@ function App() {
   )
 }
 
-// function Roll(test) {
-//   console.log(test);
-//   console.log("button pressed");
-//   /*var textarea = document.querySelector('textarea[title="Text Chat Input"]');
-//   textarea.value = "Testing";
-//   var sendbtn = document.getElementById("chatSendBtn");
-//   sendbtn.click();
-//   console.log(textarea);
-//   */
-// }
-
 export const Roll = async (test) => {
   console.log(test);
   let rollText = test;
@@ -79,15 +69,6 @@ export const Roll = async (test) => {
     }, files:['content_script.js']});
     });
   }
-
-
-  // //Eneter to textbox and click enter
-  // var textarea = document.querySelector('textarea[title="Text Chat Input"]');
-  // textarea.value = test;
-  // var sendbtn = document.getElementById("chatSendBtn");
-  // sendbtn.click();
-  // console.log(textarea);
-
 
 
 export default App
