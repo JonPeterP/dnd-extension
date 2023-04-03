@@ -27,15 +27,15 @@ function App() {
     <div className="App">
       <div className="container">
         <Router>
-        <Nav className="justify-content-center " bg="dark" justify variant="tabs" defaultActiveKey="/combat">
+        <Nav className="justify-content-center fixed-top" bg="dark" justify variant="tabs" defaultActiveKey="/">
           <Nav.Item>
-            <Nav.Link as={Link} to="/">Combat</Nav.Link>
+            <Nav.Link as={Link} eventKey="/" to="/" className="navCombat">Combat</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/skills">Skills</Nav.Link>
+            <Nav.Link as={Link} eventKey="/skills" to="/skills">Skills</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/edit">Edit</Nav.Link>
+            <Nav.Link as={Link} eventKey="/edit" to="/edit">Edit</Nav.Link>
           </Nav.Item>
         </Nav>
         <Routes>
