@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build-extension": "vite build && cp src/manifest.json dist/ && cp src/content_script.js dist/",
+    "build-extension": "vite build && cp src/manifest.json dist/ && cp src/content_script.js dist/ && cp src/d20.png dist/",
     "preview": "vite preview"
   },
   "dependencies": {

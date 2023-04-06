@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "action":{
         "default_popup": "index.html",
-        "default_title": "Dnd Roll"
+        "default_title": "Dnd Roll",
+        "default_icon": "d20.png"
     },
     "permissions": [
         "scripting", "activeTab", "storage"

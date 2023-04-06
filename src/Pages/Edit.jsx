@@ -3,59 +3,40 @@ import { useState, useEffect } from "react";
 
 
 //Weapon Object
-
 function weapon(name, hit, dmg) {
     this.wName = name;
     this.wHitRoll = hit;
     this.wDmgRoll = dmg;
 }
 
-// //populate weapon arr here
-// const newW = new weapon("", "", "");
-// let weaponArr = [newW];
-
 function Edit() {
-
     const wEdit = [];
-
-
 
     //edit this later just use objects
     const [weaponList, setWeaponList] = useState([]);
-
-
-
+    const [spellList, setSpellList] = useState([]);
+    const [skillList, setSkillList] = useState([]);
+    const [saveList, setSaveList] = useState([]); 
 
     const AddNewWeapon = event => {
         let newW = new weapon("", "", "");
-
-
-        //  console.log(newW);
-        // console.log(containsObject(newW, weaponArr));
         if (containsObject(newW, weaponList) == false) {
             setWeaponList(weaponList.concat(newW));
             storageSave(weaponList);
-
-            //weaponArr.concat(...weaponArr, newW);
-            //weaponArr.push(newW);
-            //console.log(weaponArr.length);
         }
-        //setWeaponList(weaponArr);
     }
 
     const removeWeapon = (weapName) => {
         setWeaponList((curr) =>
             curr.filter((weap) => weap.wName != weapName)
         );
-
+        console.log("Deleting: " + weapName);
+        console.log(weaponList);
+        
         storageSave(weaponList);
         //console.log("weapon list:");
         //console.log(weaponList);
     }
-
-
-
-    //Weapon list object
 
     function EditWeapon({ key, wName, wHitRoll, wDmgRoll, weaponLst }) {
         // wName, wHitDie, wHitRoll, wHitModify, wDmgDie, wDmgRoll, wDmgModify 
@@ -102,9 +83,6 @@ function Edit() {
             //event.target[3].disabled = true;
         }
 
-
-
-
         return (
             <div id={key} className={"divWeaponEditField " + wName}>
                 <form name={"weapon"} className="formWeapon" autoComplete="off" onSubmit={handleSubmit}>
@@ -121,14 +99,10 @@ function Edit() {
                     <input type="submit" value="Save" />
                 </form>
                 <button onClick={() => {
-                    //query from this div and delete based on wName
                     console.log("del");
-                    //const childNodes = document.querySelector("." + wName);
-                    //console.log(childNodes);
                     removeWeapon(wName);
                 }} style={{ width: "40px", height: "30px", padding: "0", marginTop: "5px" }}>del</button>
             </div>
-
         )
     }
 
@@ -137,38 +111,19 @@ function Edit() {
 
     //CHROME LOCAL STORAGE
     function storageSave(weap) {
-        //add weap, skill, and shits to parameter
-
-        // chrome.storage.local.set({ "Weapon": weap, 'bar': 'hi' }, function () {
-        //     console.log('Settings saved');
-        // });
-
         localStorage.setItem("weapon", JSON.stringify(weap));
         console.log("Storage saved");
-
+        console.log(JSON.stringify(weap));
     }
 
-
     const storageLoad = () => {
-
-        // chrome.storage.local.get(["Weapon"]).then ((result) => {
-        //     //weaponList = result.Weapon;
-        //     if (result.Weapon.length > 0) {
-        //         setWeaponList(result.Weapon);
-        //     }
-        //     console.log(result.Weapon);
-        //     // alert(result);
-
-        // });
-
         let weaps = JSON.parse(localStorage.getItem("weapon"));
         if (weaps != null) setWeaponList(weaps);
-        console.log("retrived weapons");
-        console.log(weaponList);
+        // console.log("retrived weapons");
+        // console.log(weaponList);
 
-        console.log("weaps");
-        console.log(weaps);
-
+        // console.log("weaps");
+        // console.log(weaps);
     };
 
    
