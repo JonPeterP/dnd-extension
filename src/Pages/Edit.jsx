@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 //Weapon Object
@@ -25,6 +25,7 @@ function Edit() {
 
 
 
+
     const AddNewWeapon = event => {
         let newW = new weapon("", "", "");
 
@@ -33,6 +34,7 @@ function Edit() {
         // console.log(containsObject(newW, weaponArr));
         if (containsObject(newW, weaponList) == false) {
             setWeaponList(weaponList.concat(newW));
+            storageSave(weaponList);
 
             //weaponArr.concat(...weaponArr, newW);
             //weaponArr.push(newW);
@@ -42,10 +44,11 @@ function Edit() {
     }
 
     const removeWeapon = (weapName) => {
-        setWeaponList((curr) =>  
+        setWeaponList((curr) =>
             curr.filter((weap) => weap.wName != weapName)
         );
 
+        storageSave(weaponList);
         //console.log("weapon list:");
         //console.log(weaponList);
     }
@@ -70,8 +73,8 @@ function Edit() {
 
             event.preventDefault();
             const newW = new weapon(inputs.wName, inputs.wHitRoll, inputs.wDmgRoll);
-            
-            if(inputs.wName == null || inputs.wHitRoll == null| inputs.wDmgRoll == null){
+
+            if (inputs.wName == null || inputs.wHitRoll == null | inputs.wDmgRoll == null) {
                 alert("fill all field");
                 return;
             }
@@ -89,6 +92,8 @@ function Edit() {
                     weaponArr[i].wName = newW.wName;
                     weaponArr[i].wHitRoll = newW.wHitRoll;
                     weaponArr[i].wDmgRoll = newW.wDmgRoll;
+
+                    storageSave(weaponArr);
                     break;
                 }
             }
@@ -97,17 +102,20 @@ function Edit() {
             //event.target[3].disabled = true;
         }
 
+
+
+
         return (
             <div id={key} className={"divWeaponEditField " + wName}>
                 <form name={"weapon"} className="formWeapon" autoComplete="off" onSubmit={handleSubmit}>
                     <input type="text" name='wName' placeholder="Weapon Name" style={{ width: "155px" }} onChange={handleChange}
-                    defaultValue={wName}
+                        defaultValue={wName}
                     ></input>
                     <input type="text" name='wHitRoll' placeholder="hit roll ex: (1d20+5)" style={{ width: "155px" }} onChange={handleChange}
-                    defaultValue={wHitRoll}
+                        defaultValue={wHitRoll}
                     ></input>
                     <input type="text" name='wDmgRoll' placeholder="dmg roll ex: (1d8+3)" style={{ width: "155px" }} onChange={handleChange}
-                    defaultValue={wDmgRoll}
+                        defaultValue={wDmgRoll}
                     ></input>
 
                     <input type="submit" value="Save" />
@@ -123,6 +131,55 @@ function Edit() {
 
         )
     }
+
+
+
+
+    //CHROME LOCAL STORAGE
+    function storageSave(weap) {
+        //add weap, skill, and shits to parameter
+
+        // chrome.storage.local.set({ "Weapon": weap, 'bar': 'hi' }, function () {
+        //     console.log('Settings saved');
+        // });
+
+        localStorage.setItem("weapon", JSON.stringify(weap));
+        console.log("Storage saved");
+
+    }
+
+
+    const storageLoad = () => {
+
+        // chrome.storage.local.get(["Weapon"]).then ((result) => {
+        //     //weaponList = result.Weapon;
+        //     if (result.Weapon.length > 0) {
+        //         setWeaponList(result.Weapon);
+        //     }
+        //     console.log(result.Weapon);
+        //     // alert(result);
+
+        // });
+
+        let weaps = JSON.parse(localStorage.getItem("weapon"));
+        if (weaps != null) setWeaponList(weaps);
+        console.log("retrived weapons");
+        console.log(weaponList);
+
+        console.log("weaps");
+        console.log(weaps);
+
+    };
+
+   
+    useEffect(() =>{
+        try {
+            storageLoad();
+        }catch (e){
+            console.log(e);
+        }
+    }, []);
+
 
     return (
 
