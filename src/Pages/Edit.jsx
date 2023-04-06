@@ -16,7 +16,7 @@ function Edit() {
     const [weaponList, setWeaponList] = useState([]);
     const [spellList, setSpellList] = useState([]);
     const [skillList, setSkillList] = useState([]);
-    const [saveList, setSaveList] = useState([]); 
+    const [saveList, setSaveList] = useState([]);
 
     //Nakakatamad imodular help
     const AddNewWeapon = event => {
@@ -38,27 +38,15 @@ function Edit() {
 
 
     const removeWeapon = (weapName) => {
-        setWeaponList((curr) =>
-            curr.filter((weap) => weap.wName != weapName)
-        );
-        console.log("Deleting: " + weapName);
-        console.log(weaponList);
-        
-        storageSave("weapon",weaponList);
-        //console.log("weapon list:");
-        //console.log(weaponList);
+        const lstResult = weaponList.filter(weap => weap.wName != weapName);
+        setWeaponList(lstResult);
+        storageSave("weapon", lstResult); //I hate useState  there is some delay of sort
     }
 
     const removeSpell = (spellName) => {
-        setSpellList((curr) =>
-            curr.filter((weap) => weap.wName != spellName)
-        );
-        console.log("Deleting: " + spellName);
-        console.log(spellList);
-        
-        storageSave("spell",spellList);
-        //console.log("weapon list:");
-        //console.log(weaponList);
+        const lstResult = spellList.filter(spel => spel.wName != spellName);
+        setSpellList(lstResult);
+        storageSave("spell", lstResult); 
     }
 
     function EditWeapon({ key, wName, wHitRoll, wDmgRoll, saveKey, weaponLst }) {
@@ -123,8 +111,8 @@ function Edit() {
                 </form>
                 <button onClick={() => {
                     console.log("del");
-                    if(saveKey == "weapon") removeWeapon(wName);
-                    if(saveKey == "spell") removeSpell(wName);
+                    if (saveKey == "weapon") removeWeapon(wName);
+                    if (saveKey == "spell") removeSpell(wName);
 
                 }} style={{ width: "40px", height: "30px", padding: "0", marginTop: "5px" }}>del</button>
             </div>
@@ -155,11 +143,11 @@ function Edit() {
         // console.log(weaps);
     };
 
-   
-    useEffect(() =>{
+
+    useEffect(() => {
         try {
             storageLoad();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }, []);
@@ -168,7 +156,7 @@ function Edit() {
     return (
 
         <div className="divEdit">
-            <h3>-- Weapon</h3>
+            <h3>-------- Weapon</h3>
             <div className="divWeaponEdits">
                 {
                     weaponList.map((item, index) => (
@@ -184,13 +172,13 @@ function Edit() {
                 }
             </div>
             <div className="div-AddWeapButton" style={{ marginTop: "12px" }}>
-                ----------------
+                --------
                 <button className="btnAddWeap" onClick={AddNewWeapon} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
                     +
                 </button>
             </div>
 
-            <h3>-- Spells</h3>
+            <h3 style={{marginTop: "12px"}}>-------- Spells</h3>
             <div className="divSpellEdits">
                 {
                     spellList.map((item, index) => (
@@ -206,7 +194,7 @@ function Edit() {
                 }
             </div>
             <div className="div-AddSpellButton" style={{ marginTop: "12px" }}>
-                ----------------
+                --------
                 <button className="btnAddWeap" onClick={AddNewSpell} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
                     +
                 </button>

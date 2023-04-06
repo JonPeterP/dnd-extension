@@ -1,8 +1,7 @@
 
 // See package json for npm run build-extension  codes
 function Roll20(rollText, rName) {
-    console.log("running this command");
-    console.log("NAME In csjs is: " + rName);
+    
     //Enter to textbox and click enter
     rollText = "/r " + rollText + "  " + rName;
      
@@ -10,7 +9,7 @@ function Roll20(rollText, rName) {
     textarea.value = rollText;
     var sendbtn = document.getElementById("chatSendBtn");
     sendbtn.click();
-    console.log(textarea);
+    //console.log(textarea);
 }
 
 //Roll20(rollText, rName);

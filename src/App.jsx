@@ -54,10 +54,10 @@ function App() {
 }
 
 export const Roll = async (test, n) => {
-  console.log(test);
+  //console.log(test);
   let rollText = test;
   let rName = n;
-  console.log("name is: " + rName);
+  //console.log("name is: " + rName);
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
 
   // await chrome.scripting.executeScript({

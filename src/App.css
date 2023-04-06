@@ -41,28 +41,13 @@ body{
 }
 
 
-.divCombat{
+.divCombat, .divSkills, .divEdit{
   margin-top: 24px;
   background-color: rgb(39, 39, 39);
   padding-top: 20px;
   padding-left: 2px;
   color: whitesmoke;
 
-}
-
-.divSkills{
-  margin-top: 24px;
-  padding-top: 20px;
-  padding-left: 2px;
-  color: whitesmoke;
-  background-color: rgb(39, 39, 39);
-}
-
-.divEdit{
-  margin-top: 24px;
-  padding-top: 20px;
-  padding-left: 2px;
-  color: whitesmoke;
 }
 
 
@@ -97,7 +82,7 @@ body{
   font-size: 1rem;
 }
 
-.divWeaponEdits{
+.divWeaponEdits, .divSpellEdits{
 display: flex;
 flex-direction: column;
 gap: 24px;
