@@ -10,6 +10,9 @@ function weapon(name, hit, dmg) {
     this.wDmgRoll = dmg;
 }
 
+// //populate weapon arr here
+// const newW = new weapon("", "", "");
+// let weaponArr = [newW];
 
 function Edit() {
 
@@ -19,34 +22,107 @@ function Edit() {
 
     //edit this later just use objects
     const [weaponList, setWeaponList] = useState([]);
-    /*
-    let weapDiv = document.querySelectorAll(".divWeaponEditField")
-    weapDiv.forEach(weap => {
-        if (containsObject(weap, weaponList) == false) {
-            //console.log("adding object now");
-            setWeaponList([...weaponList, weap]);
-        }
-    });*/
+
 
 
     const AddNewWeapon = event => {
-        weapon.wName = "";
-        weapon.wDmgRoll = "";
-        weapon.wHitRoll = "";
-
-        const newW = new weapon("", "", "");
+        let newW = new weapon("", "", "");
 
 
-        console.log(containsObject(newW, weaponList));
+        //  console.log(newW);
+        // console.log(containsObject(newW, weaponArr));
         if (containsObject(newW, weaponList) == false) {
-            
-            setWeaponList(weaponList.concat(...weaponList, weapon));
-            //setWeaponList(weaponList.concat(<EditWeapon key={weaponList.length} />));
-        }
-        console.log(weaponList);
+            setWeaponList(weaponList.concat(newW));
 
+            //weaponArr.concat(...weaponArr, newW);
+            //weaponArr.push(newW);
+            //console.log(weaponArr.length);
+        }
+        //setWeaponList(weaponArr);
     }
 
+    const removeWeapon = (weapName) => {
+        setWeaponList((curr) =>  
+            curr.filter((weap) => weap.wName != weapName)
+        );
+
+        //console.log("weapon list:");
+        //console.log(weaponList);
+    }
+
+
+
+    //Weapon list object
+
+    function EditWeapon({ key, wName, wHitRoll, wDmgRoll, weaponLst }) {
+        // wName, wHitDie, wHitRoll, wHitModify, wDmgDie, wDmgRoll, wDmgModify 
+        let weaponArr = weaponLst;
+        const [inputs, setInputs] = useState({});
+        const handleChange = (event) => {
+            const name = event.target.name;
+            const value = event.target.value;
+            setInputs(values => ({ ...values, [name]: value }))
+        }
+
+        const handleSubmit = (event) => {
+
+            console.log(weaponArr);
+
+            event.preventDefault();
+            const newW = new weapon(inputs.wName, inputs.wHitRoll, inputs.wDmgRoll);
+            
+            if(inputs.wName == null || inputs.wHitRoll == null| inputs.wDmgRoll == null){
+                alert("fill all field");
+                return;
+            }
+
+            let i = 0;
+            for (i = 0; i < weaponArr.length; i++) {
+                console.log("looping thru: " + weaponArr[i].wName);
+                if (weaponArr[i].wName == newW.wName) {
+                    weaponArr[i].wHitRoll = newW.wHitRoll;
+                    weaponArr[i].wDmgRoll = newW.wDmgRoll;
+                    break;
+                }
+                if (weaponArr[i].wName == "" && newW.wName != "") {
+                    //Fills first empty cell
+                    weaponArr[i].wName = newW.wName;
+                    weaponArr[i].wHitRoll = newW.wHitRoll;
+                    weaponArr[i].wDmgRoll = newW.wDmgRoll;
+                    break;
+                }
+            }
+            /////Disable button on click but not workign that well
+            //console.log(event);
+            //event.target[3].disabled = true;
+        }
+
+        return (
+            <div id={key} className={"divWeaponEditField " + wName}>
+                <form name={"weapon"} className="formWeapon" autoComplete="off" onSubmit={handleSubmit}>
+                    <input type="text" name='wName' placeholder="Weapon Name" style={{ width: "155px" }} onChange={handleChange}
+                    defaultValue={wName}
+                    ></input>
+                    <input type="text" name='wHitRoll' placeholder="hit roll ex: (1d20+5)" style={{ width: "155px" }} onChange={handleChange}
+                    defaultValue={wHitRoll}
+                    ></input>
+                    <input type="text" name='wDmgRoll' placeholder="dmg roll ex: (1d8+3)" style={{ width: "155px" }} onChange={handleChange}
+                    defaultValue={wDmgRoll}
+                    ></input>
+
+                    <input type="submit" value="Save" />
+                </form>
+                <button onClick={() => {
+                    //query from this div and delete based on wName
+                    console.log("del");
+                    //const childNodes = document.querySelector("." + wName);
+                    //console.log(childNodes);
+                    removeWeapon(wName);
+                }} style={{ width: "40px", height: "30px", padding: "0", marginTop: "5px" }}>del</button>
+            </div>
+
+        )
+    }
 
     return (
 
@@ -54,22 +130,20 @@ function Edit() {
             <h3>-- Weapon</h3>
             <div className="divWeaponEdits">
                 {
-                    
                     weaponList.map((item, index) => (
-                        
                         <EditWeapon id={index}
-                            key = {index}
+                            key={index}
                             wName={item.wName}
                             wHitRoll={item.wHitRoll}
                             wDmgRoll={item.wDmgRoll}
+                            weaponLst={weaponList}
                         />
-
                     ))
                 }
             </div>
-            <div className="div-AddWeapButton" style={{marginTop: "12px"}}>
+            <div className="div-AddWeapButton" style={{ marginTop: "12px" }}>
                 -----------------------------------
-                <button className="btnAddWeap" onClick={AddNewWeapon} style={{width: "40px", height: "30px", padding: "0"}}>
+                <button className="btnAddWeap" onClick={AddNewWeapon} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
                     +
                 </button>
             </div>
@@ -88,21 +162,7 @@ function containsObject(obj, list) {
 }
 
 
-function EditWeapon({ key, wName, wHitRoll, wDmgRoll }) {
-    // wName, wHitDie, wHitRoll, wHitModify, wDmgDie, wDmgRoll, wDmgModify 
-    return (
-        <div id={key} className="divWeaponEditField">
-            <form name={"weapon"} className="formWeapon">
-                <input type="text" name='wName' placeholder="Weapon Name" style={{ width: "155px" }}></input>
-                <input type="text" name='wHitRoll' placeholder="hit roll ex: (1d20+5)" style={{ width: "155px" }}></input>
-                <input type="text" name='wDmgRoll' placeholder="dmg roll ex: (1d8+3)" style={{ width: "155px" }}></input>
-                <button onClick={() =>{
-                    console.log("del");
-                }}  style={{width: "40px", height: "30px", padding: "0"}}  >del</button>
-                <input type="submit" value="Save" />
-            </form>
-        </div>
-    )
-}
+
+
 
 export default Edit;
