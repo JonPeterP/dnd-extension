@@ -66,7 +66,7 @@ body{
 }
 
 
-.divWeaponBtns{
+.divWeaponBtns, .divSpellBtns{
   background-color: rgb(39, 39, 39);
   display: flex;
   flex-wrap: wrap;
@@ -111,4 +111,8 @@ gap: 24px;
 
   align-items: center;
   flex-wrap: wrap;
+}
+
+h4{
+  color: rgb(184, 184, 184);
 }

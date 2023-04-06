@@ -1,9 +1,11 @@
 
 // See package json for npm run build-extension  codes
-function Roll(rollText) {
+function Roll20(rollText, rName) {
     console.log("running this command");
+    console.log("NAME In csjs is: " + rName);
     //Enter to textbox and click enter
-    rollText = "/r " + rollText; 
+    rollText = "/r " + rollText + "  " + rName;
+     
     var textarea = document.querySelector('textarea[title="Text Chat Input"]');
     textarea.value = rollText;
     var sendbtn = document.getElementById("chatSendBtn");
@@ -11,4 +13,4 @@ function Roll(rollText) {
     console.log(textarea);
 }
 
-Roll(rollText);
+//Roll20(rollText, rName);

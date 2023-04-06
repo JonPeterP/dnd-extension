@@ -18,6 +18,7 @@ function Edit() {
     const [skillList, setSkillList] = useState([]);
     const [saveList, setSaveList] = useState([]); 
 
+    //Nakakatamad imodular help
     const AddNewWeapon = event => {
         let newW = new weapon("", "", "");
         if (containsObject(newW, weaponList) == false) {
@@ -26,6 +27,16 @@ function Edit() {
         }
     }
 
+    const AddNewSpell = event => {
+        let newW = new weapon("", "", "");
+        if (containsObject(newW, spellList) == false) {
+            setSpellList(spellList.concat(newW));
+            storageSave(weaponList);
+        }
+    }
+
+
+
     const removeWeapon = (weapName) => {
         setWeaponList((curr) =>
             curr.filter((weap) => weap.wName != weapName)
@@ -33,12 +44,24 @@ function Edit() {
         console.log("Deleting: " + weapName);
         console.log(weaponList);
         
-        storageSave(weaponList);
+        storageSave("weapon",weaponList);
         //console.log("weapon list:");
         //console.log(weaponList);
     }
 
-    function EditWeapon({ key, wName, wHitRoll, wDmgRoll, weaponLst }) {
+    const removeSpell = (spellName) => {
+        setSpellList((curr) =>
+            curr.filter((weap) => weap.wName != spellName)
+        );
+        console.log("Deleting: " + spellName);
+        console.log(spellList);
+        
+        storageSave("spell",spellList);
+        //console.log("weapon list:");
+        //console.log(weaponList);
+    }
+
+    function EditWeapon({ key, wName, wHitRoll, wDmgRoll, saveKey, weaponLst }) {
         // wName, wHitDie, wHitRoll, wHitModify, wDmgDie, wDmgRoll, wDmgModify 
         let weaponArr = weaponLst;
         const [inputs, setInputs] = useState({});
@@ -74,7 +97,7 @@ function Edit() {
                     weaponArr[i].wHitRoll = newW.wHitRoll;
                     weaponArr[i].wDmgRoll = newW.wDmgRoll;
 
-                    storageSave(weaponArr);
+                    storageSave(saveKey, weaponArr);
                     break;
                 }
             }
@@ -86,7 +109,7 @@ function Edit() {
         return (
             <div id={key} className={"divWeaponEditField " + wName}>
                 <form name={"weapon"} className="formWeapon" autoComplete="off" onSubmit={handleSubmit}>
-                    <input type="text" name='wName' placeholder="Weapon Name" style={{ width: "155px" }} onChange={handleChange}
+                    <input type="text" name='wName' placeholder="Weapon/Spell Name" style={{ width: "155px" }} onChange={handleChange}
                         defaultValue={wName}
                     ></input>
                     <input type="text" name='wHitRoll' placeholder="hit roll ex: (1d20+5)" style={{ width: "155px" }} onChange={handleChange}
@@ -100,7 +123,9 @@ function Edit() {
                 </form>
                 <button onClick={() => {
                     console.log("del");
-                    removeWeapon(wName);
+                    if(saveKey == "weapon") removeWeapon(wName);
+                    if(saveKey == "spell") removeSpell(wName);
+
                 }} style={{ width: "40px", height: "30px", padding: "0", marginTop: "5px" }}>del</button>
             </div>
         )
@@ -110,15 +135,19 @@ function Edit() {
 
 
     //CHROME LOCAL STORAGE
-    function storageSave(weap) {
-        localStorage.setItem("weapon", JSON.stringify(weap));
+    function storageSave(saveKey, weap) {
+        localStorage.setItem(saveKey, JSON.stringify(weap));
+        //localStorage.setItem("spell", JSON.stringify(spell));
         console.log("Storage saved");
         console.log(JSON.stringify(weap));
     }
 
     const storageLoad = () => {
         let weaps = JSON.parse(localStorage.getItem("weapon"));
+        let spells = JSON.parse(localStorage.getItem("spell"));
         if (weaps != null) setWeaponList(weaps);
+        if (spells != null) setSpellList(spells);
+
         // console.log("retrived weapons");
         // console.log(weaponList);
 
@@ -149,13 +178,36 @@ function Edit() {
                             wHitRoll={item.wHitRoll}
                             wDmgRoll={item.wDmgRoll}
                             weaponLst={weaponList}
+                            saveKey={"weapon"}
                         />
                     ))
                 }
             </div>
             <div className="div-AddWeapButton" style={{ marginTop: "12px" }}>
-                -----------------------------------
+                ----------------
                 <button className="btnAddWeap" onClick={AddNewWeapon} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
+                    +
+                </button>
+            </div>
+
+            <h3>-- Spells</h3>
+            <div className="divSpellEdits">
+                {
+                    spellList.map((item, index) => (
+                        <EditWeapon id={index}
+                            key={index}
+                            wName={item.wName}
+                            wHitRoll={item.wHitRoll}
+                            wDmgRoll={item.wDmgRoll}
+                            weaponLst={spellList}
+                            saveKey={"spell"}
+                        />
+                    ))
+                }
+            </div>
+            <div className="div-AddSpellButton" style={{ marginTop: "12px" }}>
+                ----------------
+                <button className="btnAddWeap" onClick={AddNewSpell} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
                     +
                 </button>
             </div>

@@ -53,21 +53,31 @@ function App() {
   )
 }
 
-export const Roll = async (test) => {
+export const Roll = async (test, n) => {
   console.log(test);
   let rollText = test;
-
+  let rName = n;
+  console.log("name is: " + rName);
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
 
-  await chrome.scripting.executeScript({
-    target: {tabId: tab.id},
-    args:[{rollText}],
-    func: vars => Object.assign(self, vars),
-  }, () => {
+  // await chrome.scripting.executeScript({
+  //   target: {tabId: tab.id},
+  //   args:[{rollText, rName}],
+  //   func: vars => Object.assign(self, vars),
+  // }, () => {
+  //   chrome.scripting.executeScript({
+  //     target: {tabId:  tab.id
+  //   }, files:['content_script.js']});
+  //   });
+
+  await chrome.scripting.executeScript({target: {tabId: tab.id}, files: ['content_script.js']}, () => {
     chrome.scripting.executeScript({
-      target: {tabId:  tab.id
-    }, files:['content_script.js']});
+      target: {tabId: tab.id},
+      args: [rollText, rName],
+      func: (...args) => Roll20(...args),
     });
+  });
+
   }
 
 
