@@ -58,17 +58,7 @@ export const Roll = async (test, n) => {
   let rollText = test;
   let rName = n;
   //console.log("name is: " + rName);
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-
-  // await chrome.scripting.executeScript({
-  //   target: {tabId: tab.id},
-  //   args:[{rollText, rName}],
-  //   func: vars => Object.assign(self, vars),
-  // }, () => {
-  //   chrome.scripting.executeScript({
-  //     target: {tabId:  tab.id
-  //   }, files:['content_script.js']});
-  //   });
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   await chrome.scripting.executeScript({target: {tabId: tab.id}, files: ['content_script.js']}, () => {
     chrome.scripting.executeScript({
@@ -77,8 +67,23 @@ export const Roll = async (test, n) => {
       func: (...args) => Roll20(...args),
     });
   });
-
   }
 
+  export const RollSkill = async (test, n) => {
+    //console.log(test);
+    let modify = test;
+    let rName = n;
+    //console.log("name is: " + rName);
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  
+    await chrome.scripting.executeScript({target: {tabId: tab.id}, files: ['content_script.js']}, () => {
+      chrome.scripting.executeScript({
+        target: {tabId: tab.id},
+        args: [modify, rName],
+        func: (...args) => Roll20Skill(...args),
+      });
+    });
+    }
+  
 
 export default App

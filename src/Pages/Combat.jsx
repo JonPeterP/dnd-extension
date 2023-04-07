@@ -1,6 +1,6 @@
 import { Button } from "bootstrap";
 import React from "react";
-import App, { Roll } from '../App';
+import App, { Roll, RollSkill } from '../App';
 
 import { useState, useEffect } from "react";
 import Accordion from "react-bootstrap/Accordion";
@@ -8,19 +8,23 @@ import Accordion from "react-bootstrap/Accordion";
 function Combat() {
     const [weaponList, setWeaponList] = useState([]);
     const [spellList, setSpellList] = useState([]);
+    const [saveList, setSaveList] = useState([]);
 
     const storageLoad = () => {
+
         let weaps = JSON.parse(localStorage.getItem("weapon"));
         let spells = JSON.parse(localStorage.getItem("spell"));
-
         if (weaps != null) setWeaponList(weaps);
         if (spells != null) setSpellList(spells);
 
-        // console.log("retrived weapons");
-        // console.log(weaponList);
+        //Save load
+        let saves = JSON.parse(localStorage.getItem("save"));
+        if (saves == null) {
+            localStorage.setItem("save", JSON.stringify(initSaveSkill));
+            saves = JSON.parse(localStorage.getItem("save"));
 
-        // console.log("weaps");
-        // console.log(weaps);
+        }
+        setSaveList(saves);
     };
 
 
@@ -58,6 +62,16 @@ function Combat() {
         )
     }
 
+    let btnSaves = [];
+    for (let i = 0; i < saveList.length; i++) {
+        if (saveList[i].sName == "") continue;
+        btnSaves.push(<BtnSkill
+            key={i}
+            btnname={saveList[i].sName}
+            btnmodify={saveList[i].sModify}
+        />
+        )
+    }
 
 
     return (
@@ -84,12 +98,12 @@ function Combat() {
                     <Accordion.Header>Saving Throws</Accordion.Header>
                     <Accordion.Body>
                         <div className="divSaveBtns">
-                            
+                            {btnSaves}
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-        
+
         </div>
 
     )
@@ -109,6 +123,19 @@ function BtnCombat({ key, btnname, btnhit, btndmg }) {
                 Roll(btndmg, btnname);
             }}>
                 {"Damage " + btndmg}
+            </button>
+        </div>
+
+    )
+}
+
+function BtnSkill({ key, btnname, btnmodify }) {
+    return (
+        <div className="divSkillCombat">
+            <button id={key} className="btnCombat" onClick={() => {
+                RollSkill(btnmodify, btnname);
+            }} style={{width: "140px", margin: "4px"}}>
+                {btnname + " " + btnmodify}
             </button>
         </div>
 

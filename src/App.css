@@ -142,3 +142,9 @@ h4{
 .divSkillEditField .formSkill label{
   min-width: 125px;
 }
+
+.divSaveBtns, .divSkillBtns{
+  display: flex;
+  flex-wrap: wrap;
+}
+
