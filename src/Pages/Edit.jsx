@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Accordion from "react-bootstrap/Accordion";
 
 
 //Weapon Object
@@ -46,7 +47,7 @@ function Edit() {
     const removeSpell = (spellName) => {
         const lstResult = spellList.filter(spel => spel.wName != spellName);
         setSpellList(lstResult);
-        storageSave("spell", lstResult); 
+        storageSave("spell", lstResult);
     }
 
     function EditWeapon({ key, wName, wHitRoll, wDmgRoll, saveKey, weaponLst }) {
@@ -156,49 +157,70 @@ function Edit() {
     return (
 
         <div className="divEdit">
-            <h3>-------- Weapon</h3>
-            <div className="divWeaponEdits">
-                {
-                    weaponList.map((item, index) => (
-                        <EditWeapon id={index}
-                            key={index}
-                            wName={item.wName}
-                            wHitRoll={item.wHitRoll}
-                            wDmgRoll={item.wDmgRoll}
-                            weaponLst={weaponList}
-                            saveKey={"weapon"}
-                        />
-                    ))
-                }
-            </div>
-            <div className="div-AddWeapButton" style={{ marginTop: "12px" }}>
-                --------
-                <button className="btnAddWeap" onClick={AddNewWeapon} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
-                    +
-                </button>
-            </div>
 
-            <h3 style={{marginTop: "12px"}}>-------- Spells</h3>
-            <div className="divSpellEdits">
-                {
-                    spellList.map((item, index) => (
-                        <EditWeapon id={index}
-                            key={index}
-                            wName={item.wName}
-                            wHitRoll={item.wHitRoll}
-                            wDmgRoll={item.wDmgRoll}
-                            weaponLst={spellList}
-                            saveKey={"spell"}
-                        />
-                    ))
-                }
-            </div>
-            <div className="div-AddSpellButton" style={{ marginTop: "12px" }}>
-                --------
-                <button className="btnAddWeap" onClick={AddNewSpell} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
-                    +
-                </button>
-            </div>
+
+            <Accordion defaultActiveKey={['0', '1', '2']} alwaysOpen>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>Weapons</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divWeaponEdits">
+                            {
+                                weaponList.map((item, index) => (
+                                    <EditWeapon id={index}
+                                        key={index}
+                                        wName={item.wName}
+                                        wHitRoll={item.wHitRoll}
+                                        wDmgRoll={item.wDmgRoll}
+                                        weaponLst={weaponList}
+                                        saveKey={"weapon"}
+                                    />
+                                ))
+                            }
+                        </div>
+                        <div className="div-AddWeapButton" style={{ marginTop: "12px" }}>
+                            --------
+                            <button className="btnAddWeap" onClick={AddNewWeapon} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
+                                +
+                            </button>
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Spells</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divSpellEdits">
+                            {
+                                spellList.map((item, index) => (
+                                    <EditWeapon id={index}
+                                        key={index}
+                                        wName={item.wName}
+                                        wHitRoll={item.wHitRoll}
+                                        wDmgRoll={item.wDmgRoll}
+                                        weaponLst={spellList}
+                                        saveKey={"spell"}
+                                    />
+                                ))
+                            }
+                        </div>
+                        <div className="div-AddSpellButton" style={{ marginTop: "12px" }}>
+                            --------
+                            <button className="btnAddWeap" onClick={AddNewSpell} style={{ width: "25px", height: "30px", padding: "0", marginLeft: "12px" }}>
+                                +
+                            </button>
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Saving Throws</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divSaveBtns">
+
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+
         </div>
     )
 }
