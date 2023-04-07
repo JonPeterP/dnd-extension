@@ -341,7 +341,7 @@ function Edit() {
                                         key={index}
                                         sName={item.sName}
                                         sModify={item.sModify}
-                                        skillLst={saveList}
+                                        skillLst={skillList}
                                         saveKey={"skill"} />
                                 ))
                             }
