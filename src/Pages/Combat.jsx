@@ -2,7 +2,8 @@ import { Button } from "bootstrap";
 import React from "react";
 import App, { Roll } from '../App';
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import Accordion from "react-bootstrap/Accordion";
 
 function Combat() {
     const [weaponList, setWeaponList] = useState([]);
@@ -22,11 +23,11 @@ function Combat() {
         // console.log(weaps);
     };
 
-   
-    useEffect(() =>{
+
+    useEffect(() => {
         try {
             storageLoad();
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }, []);
@@ -34,26 +35,26 @@ function Combat() {
 
     let btns = [];
     for (let i = 0; i < weaponList.length; i++) {
-        if(weaponList[i].wName == "") continue;
+        if (weaponList[i].wName == "") continue;
         btns.push(<BtnCombat
             key={i}
             btnname={weaponList[i].wName}
-            btnhit = {weaponList[i].wHitRoll}
+            btnhit={weaponList[i].wHitRoll}
             btndmg={weaponList[i].wDmgRoll}
-            />
+        />
         )
     }
 
     //holy this is redundant
     let btnSpells = [];
     for (let i = 0; i < spellList.length; i++) {
-        if(spellList[i].wName == "") continue;
+        if (spellList[i].wName == "") continue;
         btnSpells.push(<BtnCombat
             key={i}
             btnname={spellList[i].wName}
-            btnhit = {spellList[i].wHitRoll}
+            btnhit={spellList[i].wHitRoll}
             btndmg={spellList[i].wDmgRoll}
-            />
+        />
         )
     }
 
@@ -61,25 +62,41 @@ function Combat() {
 
     return (
         <div className="divCombat">
-            <h3>Weapons</h3>
-            <div className="divWeaponBtns">
-                {btns}
-            </div>
-            <h3>Spells</h3>
-            <div className="divSpellBtns">
-                {btnSpells}
-            </div>
-            <h3>Saving Throws</h3>
-            <div className="divSavingBtns">
-                
-            </div>
+            <Accordion defaultActiveKey={['0', '1', '2']} alwaysOpen>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>Weapons</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divWeaponBtns">
+                            {btns}
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Spells</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divSpellBtns">
+                            {btnSpells}
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Saving Throws</Accordion.Header>
+                    <Accordion.Body>
+                        <div className="divSaveBtns">
+                            
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+        
         </div>
 
     )
 }
 
 
-function BtnCombat({ key, btnname, btnhit, btndmg}) {
+function BtnCombat({ key, btnname, btnhit, btndmg }) {
     return (
         <div className="divLblBtnCombat">
             <h4 className="lblCombat">{btnname}</h4>
