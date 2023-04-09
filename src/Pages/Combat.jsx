@@ -134,7 +134,7 @@ function BtnSkill({ key, btnname, btnmodify }) {
         <div className="divSkillCombat">
             <button id={key} className="btnCombat" onClick={() => {
                 RollSkill(btnmodify, btnname);
-            }} style={{width: "140px", margin: "4px"}}>
+            }} style={{width: "140px", margin: "4px",  height: "69px"}}>
                 {btnname + " " + btnmodify}
             </button>
         </div>

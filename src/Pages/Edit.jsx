@@ -163,6 +163,7 @@ function Edit() {
                 if (weaponArr[i].wName == newW.wName) {
                     weaponArr[i].wHitRoll = newW.wHitRoll;
                     weaponArr[i].wDmgRoll = newW.wDmgRoll;
+                    storageSave(saveKey, weaponArr);
                     break;
                 }
                 if (weaponArr[i].wName == "" && newW.wName != "") {
